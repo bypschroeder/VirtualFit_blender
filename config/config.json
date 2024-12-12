@@ -1,0 +1,9 @@
+{
+    "export":
+        {
+            "img_format": "PNG",
+            "img_type": "FULL",
+            "3D_format": "OBJ",
+            "3D_type": "FULL"
+        }
+}
