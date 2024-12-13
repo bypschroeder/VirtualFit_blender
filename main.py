@@ -1,7 +1,6 @@
 import bpy
 import os
 import sys
-import argparse
 
 # Add all subdirectories of the script directory to the system path so Blender can find the modules
 def add_subdirs_to_sys_path(root_dir):
@@ -31,13 +30,13 @@ parser = ArgumentParserForBlender()
 parser.add_argument("--gender", type=str, required=True, help="Gender of the avatar")
 parser.add_argument("--obj", type=str, required=True, help="Path to the .obj file")
 parser.add_argument("--garment", type=str, required=True, help="Path to the .blend file of the garment")
-# parser.add_argument("--output", type=str, required=True, help="Path to the output directory")
+parser.add_argument("--output", type=str, required=True, help="Path to the output directory")
 args = parser.parse_args()
 
 gender = args.gender
 obj_filepath = args.obj
 garment_filepath = args.garment
-# output_dir = args.output
+output_dir = args.output
 
 if not os.path.exists(obj_filepath):
     raise FileNotFoundError(f"File {obj_filepath} not found.")
@@ -70,6 +69,10 @@ set_cloth(garment, garment_type)
 bake_cloth(0, 80)
 post_process(garment, -0.1, 2)
 
-# # Export
-# export_img(output_dir, config["export"]["img_format"] ,config["export"]["img_type"], transparent_bg=True)
-# export_3D(output_dir, config["export"]["3D_format"],config["export"]["3D_type"])
+# Export
+os.makedirs(output_dir, exist_ok=True)
+render_path = os.path.join(output_dir, f"{garment_name}_{gender}.png")
+export_img(render_path, config["export"]["img_format"] ,config["export"]["img_type"], config["export"]["transparent_bg"])
+
+obj_path = os.path.join(output_dir, f"{garment_name}_{gender}.obj")
+export_3D(obj_path, config["export"]["3D_format"], config["export"]["3D_type"])
