@@ -62,7 +62,7 @@ join_as_shapes(avatar, generated_obj, shape_key_name)
 animate_shape_key(avatar, 0, 50, shape_key_name)
 
 # Add garment and simulate cloth
-garment_name = garment_filepath.split("\\")[-1].split(".")[0]
+garment_name = garment_filepath.split("/")[-1].split(".")[0]
 garment = add_garment(garment_filepath, garment_name)
 garment_type = garment_name.split("_")[-1]
 set_cloth(garment, garment_type)
