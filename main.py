@@ -74,5 +74,7 @@ os.makedirs(output_dir, exist_ok=True)
 render_path = os.path.join(output_dir, f"{garment_name}_{gender}.png")
 export_img(render_path, config["export"]["img_format"] ,config["export"]["img_type"], config["export"]["transparent_bg"])
 
-obj_path = os.path.join(output_dir, f"{garment_name}_{gender}.obj")
-export_3D(obj_path, config["export"]["3D_format"], config["export"]["3D_type"])
+format = config["export"]["3D_format"]
+type = config["export"]["3D_type"]
+obj_path = os.path.join(output_dir, f"{garment_name}_{gender}.{format.lower()}")
+export_3D(obj_path, format, type)
